@@ -5,6 +5,9 @@ import MessageHistory from "./components/Chat/MessageHistory";
 import { Route, Routes } from "react-router-dom";
 import Portfolio from "./components/Portfolio/Portfolio";
 import portfolioArr from "./utils/PortfolioArr";
+import axios from "axios";
+import MainTasks from "./components/AddTasks/MainTasks";
+import Slides from "./components/Slides/Slides";
 
 function App() {
   const portfolio = portfolioArr;
@@ -25,6 +28,12 @@ function App() {
     getArr()
       .then((data) => setItems(data))
       .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    axios.get(`https://swapi.dev/api/people`).then((json) => {
+      console.log(json.data);
+    });
   }, []);
 
   const props = [
@@ -64,6 +73,21 @@ function App() {
     },
   ];
 
+  const slides = [
+    {
+      img: "https://www.w3schools.com/howto/img_nature_wide.jpg",
+      text: "Caption Text 1",
+    },
+    {
+      img: "https://www.w3schools.com/howto/img_snow_wide.jpg",
+      text: "Caption Text 2",
+    },
+    {
+      img: "https://www.w3schools.com/howto/img_mountains_wide.jpg",
+      text: "Caption Text 3",
+    },
+  ];
+
   return (
     <div className="App">
       <Routes>
@@ -76,6 +100,13 @@ function App() {
           element={<MessageHistory props={props} />}
         />
         <Route path="/input" element={<Input items={items} />} />
+        <Route path="/tasks" element={<MainTasks />} />
+        <Route
+          path="/slides"
+          element={
+            <Slides slides={slides} loop={true} navs={true} pags={true} />
+          }
+        />
       </Routes>
     </div>
   );

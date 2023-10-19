@@ -1,0 +1,10 @@
+.navs {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.navs__active {
+  border: 2px solid black;
+}
